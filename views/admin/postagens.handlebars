@@ -1,0 +1,16 @@
+<h2>Lista de postagens:</h2>
+<hr>
+<a href="/admin/postagens/add" class="btn btn-success mb-3">Nova postagem</a>
+
+{{#each postagens}}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h4>{{titulo}}</h4>
+            <p>Descrição: {{descricao}}</p>
+            <small>Data: {{data}}</small>
+            <small class="d-block">Categoria: {{categoria.nome}}</small>
+         </div>
+    </div>
+{{else}}
+    <p>Nenhuma postagem registrada</p>
+{{/each}}
