@@ -75,19 +75,42 @@ router.get('/categorias/edit/:id', (req, res) => {
 })
 
 router.post('/categorias/edit', (req, res) => {
+   
     Categoria.findOne({ _id: req.body.id }).then(categoria => {
 
-        categoria.nome = req.body.nome;
-        categoria.slug = req.body.slug;
+        let erros = [];
 
-        categoria.save().then(() => {
-            req.flash('success_msg', 'Categoria editada com sucesso');
-            res.redirect('/admin/categorias');
+        if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
+            erros.push({ texto: 'Nome inválido' });
+        };
 
-        }).catch(err => {
-            res.flash('error_msg', 'Houve um erro interno ao salvar a edição da categoria');
-            res.redirect('/admin/categorias');
-        });
+        if (!req.body.slug || typeof req.body.slug == undefined || req.body.slug == null) {
+            erros.push({ texto: 'Slug inválido' });
+        };
+
+        if (req.body.nome.length < 2) {
+            erros.push({ texto: 'Nome da categoria é muito pequeno' });
+        };
+
+        if (erros.length > 0) {
+            req.flash('error_msg', 'Erro de validação');
+
+            res.redirect('admin/categorias', { erros: erros });
+
+        } else {
+
+            categoria.nome = req.body.nome;
+            categoria.slug = req.body.slug;
+
+            categoria.save().then(() => {
+                req.flash('success_msg', 'Categoria editada com sucesso');
+                res.redirect('/admin/categorias');
+
+            }).catch(err => {
+                res.flash('error_msg', 'Houve um erro interno ao salvar a edição da categoria');
+                res.redirect('/admin/categorias');
+            });
+        }
     }).catch(err => {
         req.flash('error_msg', 'Houve um erro ao editar a categoria');
         res.redirect('/admin/categorias');
