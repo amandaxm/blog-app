@@ -4,6 +4,8 @@ const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
 const app = express();
 const admin = require('./routes/admin');
+const usuarios = require('./routes/usuario');
+
 const path = require('path');
 const mongoose = require('mongoose');
 const session = require('express-session');
@@ -115,7 +117,7 @@ app.get('/categorias/:slug', (req,res) => {
 
 
 app.use('/admin', admin);
-
+app.use('/usuarios', usuarios);
 //Outros definindo porta da aplicação
 const PORT = 8081
 app.listen(PORT, () => {
