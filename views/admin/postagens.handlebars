@@ -10,6 +10,14 @@
             <small>Data: {{data}}</small>
             <small class="d-block">Categoria: {{categoria.nome}}</small>
             <a href="/admin/postagens/edit/{{_id}}"><button class="btn btn-success mt-3">Editar postagem</button></a>
+           
+            <form action="/admin/postagens/deletar/{{_id}}" method="post"> <input type="hidden" name="id" value="{{_id}}">
+            <input type="hidden" name="id" value="{{_id}}">
+
+            <button type="submit" class="btn btn-danger mt-3"> Deletar Postagem</button>
+
+        </form>
+
          </div>
     </div>
 {{else}}
