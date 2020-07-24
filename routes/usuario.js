@@ -86,4 +86,10 @@ routes.post('/login', (req, res, next) => {
 
 });
 
+routes.get('/logout', (req, res) => {
+    req.logout();//passport
+    req.flash('succes_msg', 'Deslogado com sucesso!');
+    res.redirect('/');
+})
+
 module.exports = routes;
