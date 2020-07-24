@@ -14,7 +14,8 @@ require('./models/Postagem');
 const Postagem = mongoose.model("postagens")
 require('./models/Categoria');
 const Categoria = mongoose.model("categorias")
-
+const passport = require('passport');
+require('./config/auth')(passport);
 //Configurações
 //Session
 app.use(session({
@@ -22,6 +23,11 @@ app.use(session({
     resave: true,
     savedUninitialized: true
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 app.use(flash());
 //Middlewares
 app.use((req, res, next) => {

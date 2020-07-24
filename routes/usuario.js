@@ -73,6 +73,17 @@ routes.post('/registro', (req,res) => {
         });
     }
 });
+routes.get('/login', (req,res) => {
+    res.render('usuario/login');
+});
 
+routes.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/usuarios/login',
+        failureFlash: true
+    })(req, res, next);
+
+});
 
 module.exports = routes;
