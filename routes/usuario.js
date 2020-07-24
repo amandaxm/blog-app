@@ -7,7 +7,7 @@ const Usuario = mongoose.model("usuarios")
 
 const bcrypy = require('bcryptjs');
 
-//const passport = require('passport');
+const passport = require('passport');
 
 routes.get('/registro', (req,res) => {
     res.render('usuario/registro')
@@ -78,9 +78,9 @@ routes.get('/login', (req,res) => {
 });
 
 routes.post('/login', (req, res, next) => {
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/usuarios/login',
+    passport.authenticate('local', {//autenticar
+        successRedirect: '/',//caminho se acontecer certo
+        failureRedirect: '/usuarios/login',//caso tenha dado errado
         failureFlash: true
     })(req, res, next);
 
